@@ -30,6 +30,6 @@ class ShiftTest < Minitest::Test
   def test_it_can_shift
     @shift.create_key("12345")
     @shift.offset("110120")
-    assert_equal [16, 27, 34, 45], @shift.shift
+    assert_equal [16, 27, 34, 45], @shift.shift("12345", "110120")
   end
 end
