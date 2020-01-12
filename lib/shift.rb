@@ -1,11 +1,18 @@
-class Shift
+require_relative './generate_key'
+require_relative './generate_date'
 
-  def create_key(key)
-    a = key[0..1].to_i
-    b = key[1..2].to_i
-    c = key[2..3].to_i
-    d = key[3..4].to_i
-    [a, b, c, d]
+class Shift
+  attr_reader :key, :date
+
+  def initialize(key = GenerateKey.random_key, date = GenerateDate.generate_date)
+    @key = key
+    @date = date
+  end
+
+  def create_key
+    key.split('').each_cons(2).map do |first, second|
+      (first + second).to_i
+    end
   end
 
   def offset(date)
