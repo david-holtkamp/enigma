@@ -4,7 +4,7 @@ require './lib/generate_key'
 class GenerateKeyTest < Minitest::Test
 
   def test_it_can_generate_random_number
-    GenerateKey.stubs(:random_key).returns("12345")
+    GenerateKey.expects(:random_key).returns("12345")
 
     assert_equal "12345", GenerateKey.random_key
   end
