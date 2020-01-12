@@ -8,4 +8,8 @@ class GenerateDateTest < Minitest::Test
 
     assert_equal "110120", GenerateDate.generate_date
   end
+
+  def test_it_returns_string
+    assert_instance_of String, GenerateDate.generate_date
+  end
 end
