@@ -15,18 +15,16 @@ class Shift
     end
   end
 
-  def offset(date)
+  def offset
     squared = (date.to_i ** 2).to_s
-    a = squared[-4].to_i
-    b = squared[-3].to_i
-    c = squared[-2].to_i
-    d = squared[-1].to_i
-    [a, b, c, d]
+    split = squared.split('')
+    last_4 = split[-4..-1]
+    last_4.map {|number| number.to_i}
   end
 
-  def shift(key, date)
-    keys = create_key(key)
-    date_shift = offset(date)
+  def shift
+    keys = create_key
+    date_shift = offset
     a = keys[0] + date_shift[0]
     b = keys[1] + date_shift[1]
     c = keys[2] + date_shift[2]
