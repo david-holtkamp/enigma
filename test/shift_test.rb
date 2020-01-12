@@ -38,19 +38,23 @@ class ShiftTest < Minitest::Test
   def test_date_offset
     shift = Shift.new
 
-    assert_instance_of Array, shift.offset("110120")
-    assert_equal 4, shift.offset("110120").first
-    assert_equal 4, shift.offset("110120")[1]
-    assert_equal 0, shift.offset("110120")[2]
-    assert_equal 0, shift.offset("110120").last
-    assert_equal [4, 4, 0, 0], shift.offset("110120")
+    shift.stubs(:date => "110120")
+    expected = [4, 4, 0, 0]
+    assert_instance_of Array, shift.offset
+    assert_equal 4, shift.offset.first
+    assert_equal 4, shift.offset[1]
+    assert_equal 0, shift.offset[2]
+    assert_equal 0, shift.offset.last
+    assert_equal expected, shift.offset
   end
 
   def test_it_can_shift
     shift = Shift.new
 
-    shift.create_key
-    shift.offset("110120")
-    assert_equal [16, 27, 34, 45], shift.shift("12345", "110120")
+    shift.stubs(:key => "12345")
+    shift.stubs(:date => "110120")
+
+
+    assert_equal [16, 27, 34, 45], shift.shift
   end
 end
