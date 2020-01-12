@@ -23,6 +23,13 @@ class ShiftTest < Minitest::Test
     assert_equal 4, @shift.offset("110120").first
     assert_equal 4, @shift.offset("110120")[1]
     assert_equal 0, @shift.offset("110120")[2]
-    assert_equal 0, @shift.offset("110120").last 
+    assert_equal 0, @shift.offset("110120").last
+    assert_equal [4, 4, 0, 0], @shift.offset("110120")
+  end
+
+  def test_it_can_shift
+    @shift.create_key("12345")
+    @shift.offset("110120")
+    assert_equal [16, 27, 34, 45], @shift.shift
   end
 end
