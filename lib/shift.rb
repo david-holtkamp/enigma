@@ -7,4 +7,13 @@ class Shift
     d = key[3..4].to_i
     [a, b, c, d]
   end
+
+  def offset(date)
+    squared = (date.to_i ** 2).to_s
+    a = squared[-4].to_i
+    b = squared[-3].to_i
+    c = squared[-2].to_i
+    d = squared[-1].to_i
+    [a, b, c, d]
+  end
 end

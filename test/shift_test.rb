@@ -20,9 +20,9 @@ class ShiftTest < Minitest::Test
 
   def test_date_offset
     assert_instance_of Array, @shift.offset("110120")
-    assert_equal [4], @shift.offset("110120").first
-    assert_equal [4], @shift.offset("110120")[1]
-    assert_equal [0], @shift.offset("110120")[2]
-    assert_equal [0], @shift.offset("110120").last 
+    assert_equal 4, @shift.offset("110120").first
+    assert_equal 4, @shift.offset("110120")[1]
+    assert_equal 0, @shift.offset("110120")[2]
+    assert_equal 0, @shift.offset("110120").last 
   end
 end
