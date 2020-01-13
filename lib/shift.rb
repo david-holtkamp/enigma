@@ -1,25 +1,30 @@
+require_relative './generate_key'
+require_relative './generate_date'
+
 class Shift
+  attr_reader :key, :date
 
-  def create_key(key)
-    a = key[0..1].to_i
-    b = key[1..2].to_i
-    c = key[2..3].to_i
-    d = key[3..4].to_i
-    [a, b, c, d]
+  def initialize(key = GenerateKey.random_key, date = GenerateDate.generate_date)
+    @key = key
+    @date = date
   end
 
-  def offset(date)
+  def create_key
+    key.split('').each_cons(2).map do |first, second|
+      (first + second).to_i
+    end
+  end
+
+  def offset
     squared = (date.to_i ** 2).to_s
-    a = squared[-4].to_i
-    b = squared[-3].to_i
-    c = squared[-2].to_i
-    d = squared[-1].to_i
-    [a, b, c, d]
+    split = squared.split('')
+    last_4 = split[-4..-1]
+    last_4.map {|number| number.to_i}
   end
 
-  def shift(key, date)
-    keys = create_key(key)
-    date_shift = offset(date)
+  def shift
+    keys = create_key
+    date_shift = offset
     a = keys[0] + date_shift[0]
     b = keys[1] + date_shift[1]
     c = keys[2] + date_shift[2]
