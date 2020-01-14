@@ -21,4 +21,13 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, @enigma.alphabet
     assert_equal 27, @enigma.alphabet.length
   end
+
+  def test_it_can_use_generate_shift_method
+    @enigma.stubs(:key => "02715")
+    @enigma.stubs(:date => "040895")
+    assert_instance_of Array, @enigma.shift
+    assert_equal 4, @enigma.shift.length
+  end
+
+
 end
