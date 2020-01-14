@@ -1,13 +1,4 @@
-require_relative './generate_key'
-require_relative './generate_date'
-
 class Shift
-  attr_reader :key, :date
-
-  def initialize(key = GenerateKey.random_key, date = GenerateDate.generate_date)
-    @key = key
-    @date = date
-  end
 
   def self.create_key(key)
     key.split('').each_cons(2).map do |first, second|
