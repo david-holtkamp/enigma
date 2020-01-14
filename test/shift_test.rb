@@ -25,25 +25,25 @@ class ShiftTest < Minitest::Test
     @shift.stubs(:key => "12345")
     expected = [12, 23, 34, 45]
 
-    assert_equal expected, @shift.create_key
-    assert_instance_of Array, @shift.create_key
+    assert_equal expected, Shift.create_key("12345")
+    assert_instance_of Array, Shift.create_key("12345")
   end
 
   def test_date_offset
     @shift.stubs(:date => "110120")
     expected = [4, 4, 0, 0]
-    assert_instance_of Array, @shift.offset
-    assert_equal 4, @shift.offset.first
-    assert_equal 4, @shift.offset[1]
-    assert_equal 0, @shift.offset[2]
-    assert_equal 0, @shift.offset.last
-    assert_equal expected, @shift.offset
+    assert_instance_of Array, Shift.offset("110120")
+    assert_equal 4, Shift.offset("110120").first
+    assert_equal 4, Shift.offset("110120")[1]
+    assert_equal 0, Shift.offset("110120")[2]
+    assert_equal 0, Shift.offset("110120").last
+    assert_equal expected, Shift.offset("110120")
   end
 
   def test_it_can_shift
     @shift.stubs(:key => "12345")
     @shift.stubs(:date => "110120")
 
-    assert_equal [16, 27, 34, 45], @shift.shift
+    assert_equal [16, 27, 34, 45], Shift.generate_shift("12345", "110120")
   end
 end

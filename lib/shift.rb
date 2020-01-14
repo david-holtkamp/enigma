@@ -9,22 +9,22 @@ class Shift
     @date = date
   end
 
-  def create_key
+  def self.create_key(key)
     key.split('').each_cons(2).map do |first, second|
       (first + second).to_i
     end
   end
 
-  def offset
+  def self.offset(date)
     squared = (date.to_i ** 2).to_s
     split = squared.split('')
     last_4 = split[-4..-1]
     last_4.map {|number| number.to_i}
   end
 
-  def shift
-    keys = create_key
-    date_shift = offset
+  def self.generate_shift(key, date)
+    keys = create_key(key)
+    date_shift = offset(date)
     a = keys[0] + date_shift[0]
     b = keys[1] + date_shift[1]
     c = keys[2] + date_shift[2]
