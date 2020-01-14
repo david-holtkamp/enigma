@@ -29,5 +29,9 @@ class EnigmaTest < Minitest::Test
     assert_equal 4, @enigma.shift.length
   end
 
+  def test_it_can_break_up_message
+    expected = [['h', 'e', 'l', 'l'], ['o', ' ', 'w', 'o'], [ 'r', 'l', 'd', '!']]
 
+    assert_equal expected, @enigma.message_chunked("Hello World!")
+  end
 end
