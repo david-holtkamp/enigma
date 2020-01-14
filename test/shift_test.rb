@@ -13,37 +13,29 @@ class ShiftTest < Minitest::Test
     assert_instance_of Shift, @shift
   end
 
-  def test_it_initializes
-    assert_instance_of String, @shift.key
-    assert_equal 5, @shift.key.length
-
-    assert_instance_of String, @shift.date
-    assert_equal 6, @shift.date.length
-  end
-
   def test_key_shift
-    @shift.stubs(:key => "12345")
-    expected = [12, 23, 34, 45]
+    @shift.stubs(:key => "02715")
+    expected = [02, 27, 71, 15]
 
-    assert_equal expected, @shift.create_key
-    assert_instance_of Array, @shift.create_key
+    assert_equal expected, Shift.create_key("02715")
+    assert_instance_of Array, Shift.create_key("02715")
   end
 
   def test_date_offset
-    @shift.stubs(:date => "110120")
-    expected = [4, 4, 0, 0]
-    assert_instance_of Array, @shift.offset
-    assert_equal 4, @shift.offset.first
-    assert_equal 4, @shift.offset[1]
-    assert_equal 0, @shift.offset[2]
-    assert_equal 0, @shift.offset.last
-    assert_equal expected, @shift.offset
+    @shift.stubs(:date => "040895")
+    expected = [1, 0, 2, 5]
+    assert_instance_of Array, Shift.offset("040895")
+    assert_equal 1, Shift.offset("040895").first
+    assert_equal 0, Shift.offset("040895")[1]
+    assert_equal 2, Shift.offset("040895")[2]
+    assert_equal 5, Shift.offset("040895").last
+    assert_equal expected, Shift.offset("040895")
   end
 
   def test_it_can_shift
-    @shift.stubs(:key => "12345")
-    @shift.stubs(:date => "110120")
+    @shift.stubs(:key => "02715")
+    @shift.stubs(:date => "040895")
 
-    assert_equal [16, 27, 34, 45], @shift.shift
+    assert_equal [3, 27, 73, 20], Shift.generate_shift("02715", "040895")
   end
 end
