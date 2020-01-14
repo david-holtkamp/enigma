@@ -8,6 +8,9 @@ class Enigma
     @date = GenerateDate.generate_date
     @alphabet = ("a".."z").to_a << " "
     @shift = Shift.generate_shift(key = @key, date = @date)
-    require "pry"; binding.pry
+  end
+
+  def message_chunked(message)
+    message.downcase.chars.each_slice(4).to_a
   end
 end
