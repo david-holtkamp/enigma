@@ -1,5 +1,5 @@
 require_relative 'test_helper.rb'
-require './lib/encryption'
+require './lib/enigma'
 require 'date'
 
 class EnigmaTest < Minitest::Test
@@ -13,13 +13,12 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_initializes
-    assert_equal "Hello World!", @enigma.message
+    @enigma.stubs(:key => "02715")
     assert_equal "02715", @enigma.key
+    @enigma.stubs(:date => "040895")
     assert_equal "040895", @enigma.date
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
     assert_equal expected, @enigma.alphabet
     assert_equal 27, @enigma.alphabet.length
   end
-
-
 end
