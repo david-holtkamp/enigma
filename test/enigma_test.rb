@@ -103,4 +103,15 @@ class EnigmaTest < Minitest::Test
     }
     assert_equal expected, @enigma.decrypt(message, key, date)
   end
+
+  def test_it_can_encrypt_with_todays_date_and_random_key
+    assert_instance_of Hash, @enigma.encrypt("hello world")
+    assert_instance_of Hash, @enigma.encrypt("hello world", "02715")
+  end
+
+  def test_it_can_decrypt_with_key
+    message = "keder ohulw"
+    key = "02715"
+    assert_instance_of Hash, @enigma.decrypt(message, key)
+  end
 end
