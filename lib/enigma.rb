@@ -15,7 +15,7 @@ class Enigma
     message.downcase.chars.each_slice(4).to_a
   end
 
-  def rotate_chunk(chunk, final_shift)
+  def encrypt_chunk(chunk, final_shift)
     chunk.map.with_index do |letter, index|
       if @alphabet.include?(letter)
         @alphabet.rotate(@alphabet.index(letter) + final_shift[index]).first
@@ -27,7 +27,7 @@ class Enigma
 
   def encrypt_message(message, final_shift)
     message_chunked(message).map do |chunk|
-      rotate_chunk(chunk, final_shift)
+      encrypt_chunk(chunk, final_shift)
     end.join
   end
 
@@ -48,5 +48,11 @@ class Enigma
         letter
       end
     end
+  end
+
+  def decrypt_message(encrypted_message, final_shift)
+    message_chunked(encrypted_message).map do |chunk|
+      decrypt_chunk(chunk, final_shift)
+    end.join 
   end
 end
