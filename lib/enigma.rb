@@ -53,6 +53,15 @@ class Enigma
   def decrypt_message(encrypted_message, final_shift)
     message_chunked(encrypted_message).map do |chunk|
       decrypt_chunk(chunk, final_shift)
-    end.join 
+    end.join
+  end
+
+  def decrypt(encrypted_message, key = @key, date = @date)
+    final_shift = Shift.generate_shift(key, date)
+    {
+      decryption: decrypt_message(encrypted_message, final_shift),
+      key: key,
+      date: date
+    }
   end
 end
