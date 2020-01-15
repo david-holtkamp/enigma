@@ -28,6 +28,15 @@ class Enigma
   def encrypt_message(message, final_shift)
     message_chunked(message).map do |chunk|
       rotate_chunk(chunk, final_shift)
-    end.join 
+    end.join
+  end
+
+  def encrypt(message, key = @key, date = @date)
+    final_shift = Shift.generate_shift(key, date)
+    {
+      encryption: encrypt_message(message, final_shift),
+      key: key,
+      date: date
+    }
   end
 end
