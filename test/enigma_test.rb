@@ -38,11 +38,11 @@ class EnigmaTest < Minitest::Test
 
     chunk = ['h', 'e', 'l', 'l']
     expected = ['k', 'e', 'd', 'e']
-    assert_equal expected, @enigma.rotate_chunk(chunk, final_shift)
+    assert_equal expected, @enigma.encrypt_chunk(chunk, final_shift)
 
     chunk2 = ['!', '?', '@', '&']
     expected2 = ['!', '?', '@', '&']
-    assert_equal expected2, @enigma.rotate_chunk(chunk2, final_shift)
+    assert_equal expected2, @enigma.encrypt_chunk(chunk2, final_shift)
   end
 
   def test_encrypt_message
@@ -80,5 +80,14 @@ class EnigmaTest < Minitest::Test
     chunk2 = ['!', '?', '@', '&']
     expected2 = ['!', '?', '@', '&']
     assert_equal expected2, @enigma.decrypt_chunk(chunk2, final_shift)
+  end
+
+  def test_it_can_decrypt_message
+    @enigma.stubs(:key).returns("02715")
+    @enigma.stubs(:date).returns("040895")
+    final_shift = Shift.generate_shift(@enigma.key, @enigma.date)
+
+    expected = "hello world"
+    assert_equal expected, @enigma.decrypt_message("keder ohulw", final_shift)
   end
 end
