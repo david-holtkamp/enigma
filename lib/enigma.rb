@@ -39,4 +39,14 @@ class Enigma
       date: date
     }
   end
+
+  def decrypt_chunk(chunk, final_shift)
+    chunk.map.with_index do |letter, index|
+      if @alphabet.include?(letter)
+        @alphabet.rotate(@alphabet.index(letter) - final_shift[index]).first
+      else
+        letter
+      end
+    end
+  end
 end

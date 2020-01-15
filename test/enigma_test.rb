@@ -59,12 +59,26 @@ class EnigmaTest < Minitest::Test
     message = "hello world"
     key = "02715"
     date = "040895"
-    
+
     expected = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895"
     }
     assert_equal expected, @enigma.encrypt(message, key, date)
+  end
+
+  def test_it_can_decrypt_chunk
+    @enigma.stubs(:key).returns("02715")
+    @enigma.stubs(:date).returns("040895")
+    final_shift = Shift.generate_shift(@enigma.key, @enigma.date)
+    chunk = ['k', 'e', 'd', 'e']
+    expected = ['h', 'e', 'l', 'l']
+
+    assert_equal expected, @enigma.decrypt_chunk(chunk, final_shift)
+
+    chunk2 = ['!', '?', '@', '&']
+    expected2 = ['!', '?', '@', '&']
+    assert_equal expected2, @enigma.decrypt_chunk(chunk2, final_shift)
   end
 end
