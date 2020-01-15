@@ -18,18 +18,12 @@ class EnigmaTest < Minitest::Test
     assert_equal "02715", @enigma.key
     @enigma.stubs(:date => "040895")
     assert_equal "040895", @enigma.date
+
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+
     assert_equal expected, @enigma.alphabet
     assert_equal 27, @enigma.alphabet.length
   end
-
-  # def test_it_can_use_generate_shift_method
-  #   key = "02715"
-  #   date = "040895"
-  #   assert_instance_of Array, @enigma.final_shift(key, date)
-  #   assert_equal 4, @enigma.final_shift.length(key, date)
-  #   assert_equal expected, @enigma.final_shift(key, date)
-  # end
 
   def test_it_can_break_up_message
     expected = [['h', 'e', 'l', 'l'], ['o', ' ', 'w', 'o'], [ 'r', 'l', 'd', '!']]
@@ -44,12 +38,20 @@ class EnigmaTest < Minitest::Test
 
     chunk = ['h', 'e', 'l', 'l']
     expected = ['k', 'e', 'd', 'e']
-
     assert_equal expected, @enigma.rotate_chunk(chunk, final_shift)
 
     chunk2 = ['!', '?', '@', '&']
     expected2 = ['!', '?', '@', '&']
-
     assert_equal expected2, @enigma.rotate_chunk(chunk2, final_shift)
+  end
+
+  def test_encrypt_message
+    @enigma.stubs(:key).returns("02715")
+    @enigma.stubs(:date).returns("040895")
+    final_shift = Shift.generate_shift(@enigma.key, @enigma.date)
+
+    expected = "keder ohulw"
+
+    assert_equal expected, @enigma.encrypt_message("hello world", final_shift)
   end
 end
